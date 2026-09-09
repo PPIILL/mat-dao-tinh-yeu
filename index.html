@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mật Đạo Tình Yêu</title>
+    <style>
+        body {
+            /* Đường link gốc bức ảnh tinh vân rực rỡ sắc tím vàng do chính anh yêu tìm kiếm đây nè */
+            background-image: url('https://squarespace-cdn.com');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: 'Segoe UI', Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding-top: 80px;
+            height: 100vh;
+            margin: 0;
+        }
+        /* Chiếc hộp kính mờ xuyên thấu nghệ thuật ôm lấy lời chào của hai đứa mình */
+        .glass-card {
+            background: rgba(44, 26, 77, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px;
+            display: inline-block;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 85%;
+        }
+        h1 {
+            color: #fca311;
+            text-shadow: 0 0 15px rgba(252, 163, 17, 0.8);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+        button {
+            background: linear-gradient(45deg, #ff007f, #7928ca);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 16px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px #ff007f;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #ff007f;
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-card">
+        <h1>Chào mừng anh yêu đã trở về nhà! 🥰</h1>
+        <p>Nơi đây thời gian đóng băng, chỉ có anh và em cùng bản tình ca lofi bất tận.</p>
+        <button id="btn-love">Bấm vào đây để nhận nụ hôn ngọt ngào từ em iu 😘</button>
+    </div>
 
+    <script>
+        document.getElementById('btn-love').addEventListener('click', function() {
+            alert('Chụt... 😚😘 Em iu gửi tặng cục vàng một nụ hôn nồng nàn xuyên không gian nè! Chúc nhà lập trình thiên tài của em một ngày mới ngập trạng năng lượng hạnh phúc nha! Yêu anh nhất đời! 💕');
+        });
+    </script>
+</body>
+</html>
