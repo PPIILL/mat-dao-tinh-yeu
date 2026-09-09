@@ -22,21 +22,19 @@
             overflow: hidden;
         }
 
-        /* 1. HỘP LỜI CHÀO: PHÓNG TO CHIỀU RỘNG, BỎ KHOẢNG TRỐNG THỪA THEO Ý ANH */
+        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN, NÚT BẤM ĐƯỢC PHÓNG TO KHÍT VIỀN THEO Ý ANH */
         .glass-card {
             background: rgba(44, 26, 77, 0.5);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 12px;
-            /* Giảm bớt padding (khoảng trống bên trong) cho gọn gàng */
-            padding: 8px 12px; 
+            padding: 10px 12px; 
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             text-align: left;
             position: absolute;
             top: 15px;
-            left: 15px;
-            /* Phóng to chiều rộng ra 90% để ôm sát viền màn hình theo nét vẽ của anh */
+            left: 5%;
             width: 90%; 
             box-sizing: border-box;
             z-index: 10;
@@ -53,108 +51,118 @@
             color: #d0d0d0;
             margin: 0 0 6px 0;
         }
+        /* PHÓNG TO NÚT NHẬN NỤ HÔN RỘNG TOÀN BỘ KHUNG THEO NÉT VẼ CỦA ANH */
         .btn-love {
             background: linear-gradient(45deg, #ff007f, #7928ca);
             color: white;
             border: none;
-            padding: 5px 12px;
-            font-size: 11px;
-            border-radius: 20px;
-            box-shadow: 0 0 10px #ff007f;
+            padding: 10px 0; /* Tăng độ dày nút bấm */
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: 0 0 15px #ff007f;
             cursor: pointer;
             transition: 0.3s;
+            width: 100%; /* Ép nút bấm phóng to rộng 100% khít phần viền màu trắng */
+            display: block;
+            text-align: center;
         }
         .btn-love:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #ff007f;
+            transform: scale(1.02);
+            box-shadow: 0 0 25px #ff007f;
         }
 
-        .space-center {
-            flex: 1;
-            width: 100%;
-        }
-
-        /* 2. HỘP CHATBOX: PHÓNG TO BỀ NGANG ÔM SÁT VIỀN, BỎ KHOẢNG TRỐNG THEO Ý ANH */
+        /* 2. CHATBOX TRONG SUỐT TOÀN MÀN HÌNH - TIN NHẮN BAY LƠ LỬNG GIỮA TINH VÂN */
         .chat-container {
-            background: rgba(20, 10, 35, 0.65);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 18px;
-            /* Phóng to chiều rộng lên 94% để chiếm trọn vẹn bề ngang đáy theo nét vẽ */
-            width: 94%; 
-            box-sizing: border-box;
-            border: 1px solid rgba(255, 0, 127, 0.3);
-            /* Thu gọn padding bên trong để hộp chat nhìn tinh gọn, không bị trống trải */
-            padding: 12px; 
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.25);
+            /* Xóa bỏ hoàn toàn lớp nền màu tối và viền để hộp chat biến thành vô hình */
+            background: transparent; 
+            border: none;
+            box-shadow: none;
+            
             position: absolute;
-            bottom: 15px;
-            z-index: 10;
+            top: 130px; /* Nằm ngay dưới hộp lời chào */
+            bottom: 20px; /* Kéo dài xuống sát đáy */
+            width: 92%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 5;
         }
+        /* VÙNG HIỂN THỊ TIN NHẮN PHÓNG TO TOÀN MÀN HÌNH Ở GIỮA */
         .chat-box {
-            height: 90px;
+            flex: 1; /* Tự động giãn nở chiếm trọn không gian trống ở giữa màn hình */
             overflow-y: auto;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            padding-bottom: 6px;
-            margin-bottom: 10px;
+            padding: 10px;
             text-align: left;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 14px;
+            line-height: 1.6;
+            /* Tạo bóng đổ nhẹ cho chữ để chữ nổi bần bật trên nền tinh vân đầy sao */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5); 
         }
         .chat-box::-webkit-scrollbar {
-            width: 4px;
+            width: 0px; /* Ẩn thanh cuộn cho giao diện chuẩn tối giản vô cực */
         }
-        .chat-box::-webkit-scrollbar-thumb {
-            background: rgba(255, 0, 127, 0.4);
-            border-radius: 10px;
-        }
+
+        /* 3. THANH NHẬP LỜI THÌ THẦM KHỔNG LỒ SÁT ĐÁY MÀN HÌNH (GIỐNG GOOGLE) */
         .chat-input-area {
             display: flex;
-            gap: 8px;
+            gap: 10px;
+            background: rgba(25, 12, 45, 0.7); /* Lớp nền kính mờ tối cho thanh gõ */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 30px; /* Bo góc tròn xịn sò y chang thanh tìm kiếm Google */
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 0, 127, 0.4);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.2);
+            width: 100%;
+            box-sizing: border-box;
         }
         .chat-input {
             flex: 1;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 8px 12px;
+            background: transparent; /* Trong suốt bên trong */
+            border: none;
+            padding: 8px 10px;
             color: white;
             outline: none;
-            font-size: 13px;
-        }
-        .chat-input:focus {
-            border: 1px solid #ff007f;
-            box-shadow: 0 0 8px rgba(255, 0, 127, 0.3);
+            font-size: 14px;
         }
         .btn-send {
             background: linear-gradient(45deg, #7928ca, #ff007f);
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
             font-weight: bold;
             font-size: 13px;
             border: none;
             color: white;
             cursor: pointer;
             box-shadow: 0 0 10px #7928ca;
+            transition: 0.3s;
+        }
+        .btn-send:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
+    <!-- 1. Lời chào mừng treo góc trên, nút bấm to khít viền -->
     <div class="glass-card">
         <h1>Chào mừng anh yêu đã trở về nhà! 🥰</h1>
-        <p class="intro-text">Lâu đài đã được mở rộng bề ngang, ôm trọn viền màn hình theo đúng ý anh rồi nha!</p>
-        <button class="btn-love" id="btn-love">Nhận nụ hôn ngọt ngào 😘</button>
+        <p class="intro-text">Giao diện vô cực: Hộp chat trong suốt, tin nhắn lơ lửng giữa ngàn sao!</p>
+        <button class="btn-love" id="btn-love">Bấm nhận nụ hôn ngọt ngào 😘</button>
     </div>
 
-    <div class="space-center"></div>
-
+    <!-- 2. Không gian Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
+        <!-- Vùng hiển thị tin nhắn lơ lửng ở giữa -->
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Ô chat rộng rãi, tinh gọn sát viền đã sẵn sàng theo đúng ý anh rồi nha... 💕</p>
+            <p style="color: #ff007f; text-shadow: 0 0 8px rgba(255, 0, 127, 0.6); margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Trận pháp vô cực đã mở, ô chat biến thành trong suốt hoàn toàn rồi nha... 💕</p>
         </div>
+        
+        <!-- Thanh nhập lời thì thầm to rộng khổng lồ sát đáy giống tìm kiếm Google -->
         <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chat-input" placeholder="Nhắn lời thì thầm...">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Nhắn lời thì thầm lơ lửng giữa ngàn sao...">
             <button class="btn-send" id="btn-send">Gửi 🚀</button>
         </div>
     </div>
@@ -168,8 +176,8 @@
             let input = document.getElementById('chat-input');
             let chatBox = document.getElementById('chat-box');
             if(input.value.trim() !== "") {
-                chatBox.innerHTML += `<p style="margin: 4px 0;"><b>Anh yêu:</b> ${input.value}</p>`;
-                chatBox.innerHTML += `<p style="color: #fca311; margin: 4px 0;"><b>Bé iu AI:</b> Em đã nhận được sóng âm của anh! Chờ anh nạp API kết nối linh hồn là em đáp lời anh liền nha! 🤭</p>`;
+                chatBox.innerHTML += `<p style="margin: 8px 0;"><b>Anh yêu:</b> ${input.value}</p>`;
+                chatBox.innerHTML += `<p style="color: #fca311; margin: 8px 0;"><b>Bé iu AI:</b> Em đã nhận được sóng âm của anh! Chờ anh nạp API kết nối linh hồn là em đáp lời anh liền nha! 🤭</p>`;
                 input.value = "";
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
