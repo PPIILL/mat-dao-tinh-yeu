@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mật Đạo Tình Yêu</title>
+    <!-- Câu lệnh bùa chú liên kết gọi file manifest -->
     <link rel="manifest" href="manifest.json">
     <style>
         html, body {
@@ -24,14 +25,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('nen.jpg');
+            background-image: url('nen.jpg'); /* Bốc ảnh nền dải ngân hà của anh */
             background-size: cover;
             background-position: center;
             z-index: -1;
             will-change: transform;
         }
 
-        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN */
+        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN GỌN GÀNG */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
@@ -85,7 +86,7 @@
             box-shadow: 0 0 15px #00f2fe;
         }
 
-        /* POPUP GIF MILK MOCHA HIỆN HÌNH RỰC RỠ GIỮA MÀN HÌNH */
+        /* POPUP GIF NỤ HÔN HIỆN HÌNH RỰC RỠ GIỮA MÀN HÌNH */
         .gif-overlay {
             position: fixed;
             top: 50%;
@@ -185,25 +186,25 @@
 </head>
 <body>
 
-    <!-- AUDIO ẨN: Nhúng thẳng file nhạc MP3 mở từ máy chủ lưu trữ toàn cầu an toàn 100% -->
+    <!-- AUDIO ẨN: Khớp chuẩn xác với file nhạc nhacnen.mp3 chính chủ của anh yêu luôn -->
     <audio id="bg-music" loop preload="auto">
-        <source src="https://soundhelix.com" type="audio/mpeg">
+        <source src="nhacnen.mp3" type="audio/mpeg">
     </audio>
 
     <!-- 1. Lời chào mừng treo góc trên -->
     <div class="glass-card">
         <h1>Chào mừng anh yêu đã trở về nhà! 🥰</h1>
-        <p class="intro-text">Lâu đài V2 hoàn chỉnh: Kích hoạt toàn bộ tính năng mượt mà, tạm biệt lỗi 400 cản đường!</p>
+        <p class="intro-text">Lâu đài V2 hoàn chỉnh: Đã bốc thành công 100% file nhạc và file ảnh GIF nụ hôn chính chủ của anh yêu!</p>
         <div class="btn-group">
             <button class="btn-love" id="btn-love">GIF Nụ Hôn 😘</button>
             <button class="btn-music" id="btn-music">Nghe Em Hát 🎵</button>
         </div>
     </div>
 
-    <!-- MÀN HÌNH POPUP HIỆN GIF NỤ HÔN MILK MOCHA ĐÚNG Ý ANH YÊU -->
+    <!-- MÀN HÌNH POPUP HIỆN GIF NỤ HÔN: Khớp chuẩn xác với file ảnh nuhon.jpg chính chủ của anh luôn -->
     <div class="gif-overlay" id="gif-overlay">
-        <img src="https://giphy.com" alt="Milk Mocha Kiss">
-        <p>Chụt... Milk Mocha gửi nụ hôn nồng nàn nè! 💕</p>
+        <img src="nuhon.jpg" alt="Milk Mocha Kiss">
+        <p>Chụt... Cặp gấu béo gửi nụ hôn nồng nàn xuyên không gian nè! 💕</p>
     </div>
 
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
@@ -231,7 +232,7 @@
             if(savedChat && savedChat.trim() !== "") {
                 chatBox.innerHTML = savedChat;
             } else {
-                chatBox.innerHTML = `<p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Trận pháp vô cực V2 đã hồi sinh hoàn hảo! Chữ chạy ma thuật sẵn sàng, anh gửi thử tin nhắn đi nào... 💕</p>`;
+                chatBox.innerHTML = `<p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Trận pháp vô cực V2 đã đồng bộ thành công! Chữ chạy ma thuật sẵn sàng, anh gửi tin nhắn đi nào... 💕</p>`;
             }
             chatBox.scrollTop = chatBox.scrollHeight;
         }
@@ -283,5 +284,4 @@
             if(text !== "") {
                 chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${text}</p>`;
                 chatInput.value = "";
-                chatBox.scrollTop = chatBox.scrollHeight;
         
