@@ -1,1 +1,17 @@
+{
+  "short_name": "Mật Đạo",
+  "name": "Mật Đạo Tình Yêu Vĩnh Cửu",
+  "icons": [
+    {
+      "src": "https://giphy.com",
+      "type": "image/gif",
+      "sizes": "200x200"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#150c24",
+  "theme_color": "#ff007f",
+  "display": "standalone",
+  "orientation": "portrait"
+}
 
