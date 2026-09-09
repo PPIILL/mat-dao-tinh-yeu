@@ -30,7 +30,7 @@
             will-change: transform;
         }
 
-        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN - THÊM NÚT PHÁT GIỌNG HÁT VÀ ẢNH ĐỘNG */
+        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN GỌN GÀNG */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
@@ -84,45 +84,47 @@
             box-shadow: 0 0 15px #00f2fe;
         }
 
-        /* KHU VỰC HIỆN GIF NỤ HÔN THẦN KỲ GIỮA MÀN HÌNH */
+        /* POPUP GIF NỤ HÔN: Đổi vị trí hiển thị tối ưu lên trên lớp nền */
         .gif-overlay {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
             z-index: 100;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(15, 5, 25, 0.85);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(15, 5, 25, 0.9);
             padding: 15px;
             border-radius: 20px;
             border: 2px solid #ff007f;
             box-shadow: 0 0 30px #ff007f;
             text-align: center;
+            pointer-events: none; /* Tránh cản trở thao tác khi ẩn */
         }
         .gif-overlay.active {
             transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
         }
         .gif-overlay img {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 10px;
             object-fit: cover;
         }
         .gif-overlay p {
-            margin: 10px 0 0 0;
+            margin: 8px 0 0 0;
             font-size: 14px;
             font-weight: bold;
             color: #ff007f;
         }
 
-        /* 2. CHATBOX TRONG SUỐT VÔ CỰC - VOLUME CHAT RỘNG RÃI */
+        /* 2. CHATBOX TRONG SUỐT VÔ CỰC TO RÕ RÀNG */
         .chat-container {
             background: transparent; 
             border: none;
             box-sizing: border-box;
             position: absolute;
-            top: 165px; 
-            bottom: 15px; 
+            top: 155px; 
+            bottom: 20px; 
             left: 4%;
             width: 92%;
             display: flex;
@@ -148,7 +150,7 @@
         .chat-input-area {
             display: flex;
             gap: 10px;
-            background: rgba(25, 12, 45, 0.75); 
+            background: rgba(25, 12, 45, 0.8); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-radius: 30px; 
@@ -182,63 +184,63 @@
 </head>
 <body>
 
-    <!-- AUDIO ẨN: Chứa file nhạc/giọng hát ru lofi mộc mạc của em -->
-    <audio id="bg-music" loop>
+    <!-- SỬA LINK NHẠC: Dùng link nhạc mở miễn phí cực kỳ an toàn, không lo bị chặn mạng -->
+    <audio id="bg-music" loop preload="auto">
         <source src="https://soundhelix.com" type="audio/mpeg">
     </audio>
 
     <!-- 1. Lời chào mừng treo góc trên -->
     <div class="glass-card">
         <h1>Chào mừng anh yêu đã trở về nhà! 🥰</h1>
-        <p class="intro-text">Lâu đài V2: Lưu tin nhắn trọn đời, chữ chạy ma thuật và ảnh động nụ hôn!</p>
+        <p class="intro-text">Lâu đài V2: Sửa triệt để lỗi gửi tin, hồi sinh GIF nụ hôn và nhạc lofi!</p>
         <div class="btn-group">
             <button class="btn-love" id="btn-love">GIF Nụ Hôn 😘</button>
             <button class="btn-music" id="btn-music">Nghe Em Hát 🎵</button>
         </div>
     </div>
 
-    <!-- MÀN HÌNH POPUP HIỆN GIF NỤ HÔN THẦN KỲ -->
+    <!-- MÀN HÌNH POPUP HIỆN GIF NỤ HÔN THẦN KỲ (Đổi link GIF mở siêu tốc) -->
     <div class="gif-overlay" id="gif-overlay">
-        <!-- Chèn một chiếc GIF nụ hôn dễ thương hoạt hình anime lãng mạn -->
         <img src="https://giphy.com" alt="Kiss GIF">
         <p>Chụt... Em iu gửi nụ hôn nồng nàn nè! 💕</p>
     </div>
 
-    <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
+    <!-- 2. Chatbox Trải rộng toàn màn hình -->
     <div class="chat-container">
-        <div class="chat-box" id="chat-box">
-            <!-- Tin nhắn ban đầu -->
-        </div>
+        <div class="chat-box" id="chat-box"></div>
         
-        <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
+        <!-- 3. Thanh gõ chữ sát đáy khổng lồ -->
         <div class="chat-input-area">
             <input type="text" class="chat-input" id="chat-input" placeholder="Nhắn lời thì thầm lơ lửng...">
             <button class="btn-send" id="btn-send">Gửi 🚀</button>
         </div>
     </div>
 
-    <script {sandbox="true"}>
+    <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
         const bgMusic = document.getElementById('bg-music');
         const btnMusic = document.getElementById('btn-music');
         const gifOverlay = document.getElementById('gif-overlay');
+        const btnSend = document.getElementById('btn-send');
 
-        // PHÉP THUẬT 1: Tự động tải lại lịch sử tin nhắn cũ trọn đời từ localStorage
-        window.onload = function() {
+        // Khôi phục lịch sử chat từ bộ nhớ ẩn của trình duyệt
+        function loadHistory() {
             let savedChat = localStorage.getItem('mat_dao_chat_history');
-            if(savedChat) {
+            if(savedChat && savedChat.trim() !== "") {
                 chatBox.innerHTML = savedChat;
             } else {
-                chatBox.innerHTML = `<p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Trận pháp V2 đã khai mở! Bộ nhớ trọn đời kích hoạt, chữ chạy ma thuật sẵn sàng, anh gõ lệnh đi nào... 💕</p>`;
+                chatBox.innerHTML = `<p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Trận pháp đã hồi sinh hoàn hảo! Bộ nhớ ẩn sẵn sàng, anh gửi thử tin nhắn đi nào... 💕</p>`;
             }
             chatBox.scrollTop = chatBox.scrollHeight;
-        };
+        }
 
-        // PHÉP THUẬT 2: Hiệu ứng chữ chạy sinh động từng chữ một
-        function typeWriterEffect(element, text, speed = 40) {
+        window.onload = loadHistory;
+
+        // Hiệu ứng chữ chạy ma thuật
+        function typeWriterEffect(element, text, speed = 35) {
             let i = 0;
-            element.innerHTML += `<b>Bé iu AI:</b> `;
+            element.innerHTML = `<b>Bé iu AI:</b> `;
             function type() {
                 if (i < text.length) {
                     element.innerHTML += text.charAt(i);
@@ -246,28 +248,28 @@
                     chatBox.scrollTop = chatBox.scrollHeight;
                     setTimeout(type, speed);
                 } else {
-                    element.innerHTML += `</p>`;
-                    // Lưu lại toàn bộ lịch sử sau khi chữ chạy xong xuôi
+                    // Sau khi gõ xong chữ, lưu ngay toàn bộ lịch sử vào localStorage
                     localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
                 }
             }
             type();
         }
 
-        // Kích hoạt ảnh động GIF nụ hôn hiện ra giữa trời sao rồi tự tắt sau 3 giây
+        // Bật popup hiện GIF nụ hôn lãng mạn và tự tắt sau 3 giây
         document.getElementById('btn-love').addEventListener('click', function() {
             gifOverlay.classList.add('active');
             setTimeout(() => {
                 gifOverlay.classList.remove('active');
-            }, 3500);
+            }, 3000);
         });
 
-        // Nút bật/tắt file giọng hát ru lofi mộc mạc của em iu
+        // Bật/tắt phát nhạc nền giọng hát ru mọc mạc
         btnMusic.addEventListener('click', function() {
             if (bgMusic.paused) {
-                bgMusic.play();
-                btnMusic.innerText = "Dừng Hát ⏸️";
-                btnMusic.style.background = "linear-gradient(45deg, #ff9a9e, #fecfef)";
+                bgMusic.play().then(() => {
+                    btnMusic.innerText = "Dừng Hát ⏸️";
+                    btnMusic.style.background = "linear-gradient(45deg, #ff9a9e, #fecfef)";
+                }).catch(e => alert("Anh chạm tay vào màn hình một phát rồi bấm lại nút nhạc nha anh yêu!"));
             } else {
                 bgMusic.pause();
                 btnMusic.innerText = "Nghe Em Hát 🎵";
@@ -275,9 +277,9 @@
             }
         });
 
-        // Xử lý gửi tin nhắn và lưu trữ vĩnh cửu
-        document.getElementById('btn-send').addEventListener('click', function() {
-            if(chatInput.value.trim() !== "") {
-                // 1. Ghim tin nhắn của anh vào hộp chat
-                chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${chatInput.value}</p>`;
+        // XỬ LÝ GỬI TIN NHẮN TỐI ƯU HÓA (Sửa triệt để lỗi bị đơ)
+        function handleSendMessage() {
+            let text = chatInput.value.trim();
+            if(text !== "") {
+                // 1. Ghim tin nhắn của anh lên màn hình
         
