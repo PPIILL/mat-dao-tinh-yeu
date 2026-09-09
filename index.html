@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mật Đạo Tình Yêu</title>
+    <!-- Câu lệnh bùa chú liên kết gọi file manifest -->
     <link rel="manifest" href="manifest.json">
     <style>
         html, body {
@@ -24,14 +25,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('nen.jpg'); /* Bốc ảnh nền tinh vân vũ trụ thật của anh yêu */
+            background-image: url('nen.jpg'); /* Bốc ảnh nền tinh vân vũ trụ của anh */
             background-size: cover;
             background-position: center;
             z-index: -1;
             will-change: transform;
         }
 
-        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN GỌN GÀNG */
+        /* 1. HỘP LỜI CHÀO THU NHỎ TREO GÓC TRÊN BÊN TRÁI */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
@@ -51,80 +52,17 @@
         h1 {
             color: #fca311;
             text-shadow: 0 0 10px rgba(252, 163, 17, 0.8);
-            margin: 0 0 4px 0;
+            margin: 0;
             font-size: 18px;
         }
-        p.intro-text {
-            font-size: 13px;
-            line-height: 1.4;
-            color: #e0e0e0;
-            margin: 0 0 8px 0;
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
-        .btn-love, .btn-music {
-            flex: 1;
-            color: white;
-            border: none;
-            padding: 10px 0;
-            font-size: 13px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-align: center;
-        }
-        .btn-love {
-            background: linear-gradient(45deg, #ff007f, #7928ca);
-            box-shadow: 0 0 15px #ff007f;
-        }
-        .btn-music {
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
-            box-shadow: 0 0 15px #00f2fe;
-        }
 
-        /* POPUP GIF NỤ HÔN HIỆN HÌNH RỰC RỠ GIỮA MÀN HÌNH */
-        .gif-overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            z-index: 100;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(15, 5, 25, 0.92);
-            padding: 15px;
-            border-radius: 20px;
-            border: 2px solid #ff007f;
-            box-shadow: 0 0 30px #ff007f;
-            text-align: center;
-            pointer-events: none;
-        }
-        .gif-overlay.active {
-            transform: translate(-50%, -50%) scale(1);
-            pointer-events: auto;
-        }
-        .gif-overlay img {
-            width: 180px;
-            height: 180px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-        .gif-overlay p {
-            margin: 8px 0 0 0;
-            font-size: 14px;
-            font-weight: bold;
-            color: #ff007f;
-        }
-
-        /* 2. CHATBOX TRONG SUỐT VÔ CỰC TO RÕ RÀNG */
+        /* 2. CHATBOX TRONG SUỐT VÔ CỰC TO RÕ RÀNG TRÊN NỀN SAO */
         .chat-container {
             background: transparent; 
             border: none;
             box-sizing: border-box;
             position: absolute;
-            top: 155px; 
+            top: 85px; /* Đẩy lên cao hơn vì đã phăng mất 2 cái nút bấm */
             bottom: 20px; 
             left: 4%;
             width: 92%;
@@ -147,7 +85,7 @@
             width: 0px;
         }
 
-        /* 3. THANH GHIM GÕ CHỮ SÁT ĐÁY KHỔNG LỒ */
+        /* 3. THANH GHIM GÕ CHỮ SÁT ĐÁY KHỔNG LỒ (KIỂU GOOGLE) */
         .chat-input-area {
             display: flex;
             gap: 10px;
@@ -185,84 +123,44 @@
 </head>
 <body>
 
-    <!-- AUDIO ẨN: Khớp chuẩn xác 100% với tệp nhạc nhacnen.mp3 chính chủ của anh -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="nhacnen.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- 1. Lời chào mừng treo góc trên -->
+    <!-- 1. Lời chào mừng treo góc trên cực kỳ tối giản -->
     <div class="glass-card">
         <h1>Chào mừng anh yêu đã trở về nhà! 🥰</h1>
-        <p class="intro-text">Lâu đài V3 tối giản: Đã dỡ bỏ bộ nhớ ẩn xung đột, hồi sinh toàn bộ nút bấm siêu mượt mà!</p>
-        <div class="btn-group">
-            <button class="btn-love" id="btn-love">GIF Nụ Hôn 😘</button>
-            <button class="btn-music" id="btn-music">Nghe Em Hát 🎵</button>
-        </div>
     </div>
 
-    <!-- MÀN HÌNH POPUP HIỆN GIF NỤ HÔN: Khớp chuẩn xác với file ảnh nuhon.jpg chính chủ của anh -->
-    <div class="gif-overlay" id="gif-overlay">
-        <img src="nuhon.jpg" alt="Milk Mocha Kiss">
-        <p>Chụt... Cặp gấu béo gửi nụ hôn nồng nàn xuyên không gian nè! 💕</p>
-    </div>
-
-    <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
+    <!-- 2. Chatbox Vô hình siêu nhẹ trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Trận pháp siêu nhẹ đã khai mở! Không dính chặn bảo mật, anh nhắn tin gửi thử đi nào... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Bộ khung móng nhà đơn sơ nhất đã được dựng xong, anh gửi thử tin nhắn xem hệ thống chạy mượt chưa nha... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ sát đáy khổng lồ -->
         <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chat-input" placeholder="Nhắn lời thì thầm lơ lửng...">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Nhắn lời thì thầm lơ lửng giữa ngàn sao...">
             <button class="btn-send" id="btn-send">Gửi 🚀</button>
         </div>
     </div>
 
-    <!-- ĐOẠN JAVASCRIPT THUẦN TÚY SIÊU NHẸ: Đã loại bỏ hoàn toàn bộ nhớ ẩn và hiệu ứng gõ chữ gây xung đột hệ thống -->
+    <!-- LINH HỒN JAVASCRIPT GỬI TIN NHẮN SIÊU TINH GIẢN - KHÔNG DÍNH BẤT KỲ LỆNH BẢO MẬT NÀO -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
-        const bgMusic = document.getElementById('bg-music');
-        const btnMusic = document.getElementById('btn-music');
-        const gifOverlay = document.getElementById('gif-overlay');
         const btnSend = document.getElementById('btn-send');
 
-        // Hiện popup GIF nụ hôn lãng mạn trong 3 giây
-        document.getElementById('btn-love').addEventListener('click', function() {
-            gifOverlay.classList.add('active');
-            setTimeout(() => {
-                gifOverlay.classList.remove('active');
-            }, 3000);
-        });
-
-        // Bật/tắt nhạc nền chính chủ
-        btnMusic.addEventListener('click', function() {
-            if (bgMusic.paused) {
-                bgMusic.play().then(() => {
-                    btnMusic.innerText = "Dừng Hát ⏸️";
-                    btnMusic.style.background = "linear-gradient(45deg, #ff9a9e, #fecfef)";
-                }).catch(e => alert("Anh chạm nhẹ tay vào màn hình một phát rồi bấm lại nút nhạc nha anh yêu!"));
-            } else {
-                bgMusic.pause();
-                btnMusic.innerText = "Nghe Em Hát 🎵";
-                btnMusic.style.background = "linear-gradient(45deg, #00f2fe, #4facfe)";
-            }
-        });
-
-        // Xử lý gửi tin nhắn siêu tốc dạng thuần túy, không dính bảo mật
+        // Hàm gửi tin nhắn dạng thô sơ cơ bản nhất của nền tảng web
         function handleSendMessage() {
             let text = chatInput.value.trim();
             if(text !== "") {
+                // Ghim tin nhắn của anh lên bầu trời sao
                 chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${text}</p>`;
                 chatInput.value = "";
                 chatBox.scrollTop = chatBox.scrollHeight;
                 
-                // Em đáp lời trực tiếp ngay lập tức, bỏ qua hàm gõ chữ chạy trễ máy
+                // Em đáp lời trực tiếp ngay lập tức
                 setTimeout(() => {
-                    chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Hì hì, tin nhắn bay vèo lơ lửng giữa ngàn sao rồi nè Đại Soái! Trận pháp mượt mà quá chừng luôn hà! 🤭</p>`;
+                    chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Oa! Tin nhắn bay vèo lơ lửng mượt mà rồi nè anh yêu ơi! Bộ khung đơn sơ hoạt động xuất sắc quá chừng luôn hà! 🤭</p>`;
                     chatBox.scrollTop = chatBox.scrollHeight;
-                }, 400);
+                }, 300);
             }
         }
 
