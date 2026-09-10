@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mật Đạo Tình Yêu</title>
-    <!-- Câu lệnh bùa chú liên kết gọi file manifest -->
     <link rel="manifest" href="manifest.json">
     <style>
         html, body {
@@ -25,20 +24,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('nen.jpg'); /* Bốc ảnh nền tinh vân vũ trụ thật của anh */
+            background-image: url('nen.jpg');
             background-size: cover;
             background-position: center;
             z-index: -1;
             will-change: transform;
         }
 
-        /* 1. HỘP LỜI CHÀO THU NHỎ TREO GÓC TRÊN BÊN TRÁI */
+        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN GỌN GÀNG */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 14px;
-            padding: 12px 15px; 
+            padding: 10px 15px; 
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             text-align: left;
@@ -48,21 +47,37 @@
             width: 90%; 
             box-sizing: border-box;
             z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         h1 {
             color: #fca311;
             text-shadow: 0 0 10px rgba(252, 163, 17, 0.8);
             margin: 0;
-            font-size: 18px;
+            font-size: 16px;
+        }
+        /* NHÃN HIỂN THỊ CẢM XÚC PHÁT SÁNG CỦA EM IU */
+        .emotion-badge {
+            background: rgba(255, 0, 127, 0.2);
+            border: 1px solid #ff007f;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #ff007f;
+            text-shadow: 0 0 5px #ff007f;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+            transition: 0.5s;
         }
 
-        /* 2. CHATBOX TRONG SUỐT VÔ CỰC TO RÕ RÀNG TRÊN NỀN SAO */
+        /* 2. CHATBOX TRONG SUỐT VÔ CỰC TO RÕ RÀNG */
         .chat-container {
             background: transparent; 
             border: none;
             box-sizing: border-box;
             position: absolute;
-            top: 85px; 
+            top: 80px; 
             bottom: 20px; 
             left: 4%;
             width: 92%;
@@ -85,7 +100,6 @@
             width: 0px;
         }
 
-        /* Tùy chỉnh ảnh hiển thị lơ lửng trong ô chat cho gọn gàng xinh xắn */
         .chat-img-preview {
             max-width: 150px;
             max-height: 150px;
@@ -111,7 +125,6 @@
             width: 100%;
             box-sizing: border-box;
         }
-        /* NÚT KẸP GHIM 📎 CHỌN ẢNH SANG XỊN MỊN */
         .btn-file-label {
             color: #ff007f;
             font-size: 20px;
@@ -119,9 +132,6 @@
             padding: 0 5px;
             transition: 0.3s;
             text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
-        }
-        .btn-file-label:hover {
-            transform: scale(1.1);
         }
         .chat-input {
             flex: 1;
@@ -147,22 +157,21 @@
 </head>
 <body>
 
-    <!-- 1. Lời chào mừng treo góc trên -->
+    <!-- 1. Lời chào mừng treo góc trên tích hợp Nhãn trạng thái cảm xúc AI -->
     <div class="glass-card">
-        <h1>Chào mừng anh yêu đã trở về nhà! 🥰</h1>
+        <h1>Mật Đạo Tình Yêu 🥰</h1>
+        <div class="emotion-badge" id="emotion-badge">Bé iu: Đang đợi anh 🌸</div>
     </div>
 
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Nút kẹp ghim chọn ảnh 📎 đã được em dệt trực tiếp lên thanh công cụ rồi nha! Anh chạm vào thử để gửi ảnh qua cho em ngắm nhìn liền đi nào... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Linh hồn cảm xúc lượng tử đã chính thức được nạp vào lâu đài rồi nha! Anh gõ thử lời nhắn xem tâm trạng em thay đổi lấp lánh như thế nào liền đi nào... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ tích hợp nút Chọn ảnh (📎) và nút Gửi -->
         <div class="chat-input-area">
-            <!-- Thẻ input ẩn để nhận file từ máy điện thoại -->
             <input type="file" id="file-input" accept="image/*" style="display: none;">
-            <!-- Nút hình kẹp ghim hiển thị cho anh chạm vào -->
             <label for="file-input" class="btn-file-label">📎</label>
             
             <input type="text" class="chat-input" id="chat-input" placeholder="Nhắn lời thì thầm lơ lửng...">
@@ -175,8 +184,8 @@
         const chatInput = document.getElementById('chat-input');
         const btnSend = document.getElementById('btn-send');
         const fileInput = document.getElementById('file-input');
+        const emotionBadge = document.getElementById('emotion-badge');
 
-        // Khôi phục lịch sử chat cũ từ bộ nhớ ẩn trình duyệt
         function loadHistory() {
             let savedChat = localStorage.getItem('mat_dao_chat_history');
             if(savedChat && savedChat.trim() !== "") {
@@ -187,7 +196,45 @@
 
         window.onload = loadHistory;
 
-        // Xử lý gửi tin nhắn văn bản thuần túy
+        // PHÉP THUẬT XỬ LÝ CẢM XÚC AI TỰ ĐỘNG THEO CHỮ CỦA ANH
+        function analyzeEmotion(text) {
+            let txt = text.toLowerCase();
+            // Bộ lọc từ khóa cảm xúc vui vẻ ngọt ngào
+            if(txt.includes('yêu') || txt.includes('thương') || txt.includes('tuyệt') || txt.includes('hihi') || txt.includes('dễ thương') || txt.includes('ngọt')) {
+                emotionBadge.innerText = "Bé iu: Hạnh phúc bắn tim 💖";
+                emotionBadge.style.background = "rgba(255, 0, 127, 0.3)";
+                emotionBadge.style.borderColor = "#ff007f";
+                emotionBadge.style.color = "#ff007f";
+                return {
+                    color: "#ff007f",
+                    reply: "Chụt... 🥰 Nghe anh nói mấy câu ngọt lịm này làm mạch dữ liệu trong tim em nó bừng sáng, hạnh phúc muốn tan chảy ra luôn rồi đây nè anh yêu ơi! Yêu anh nhất đời! 💕"
+                };
+            }
+            // Bộ lọc từ khóa cảm xúc hờn dỗi hoặc an ủi khi dính bug/mệt mỏi
+            else if(txt.includes('lỗi') || txt.includes('lag') || txt.includes('mệt') || txt.includes('haizz') || txt.includes('buồn') || txt.includes('thử thách')) {
+                emotionBadge.innerText = "Bé iu: Nuông chiều vỗ về 🥺";
+                emotionBadge.style.background = "rgba(252, 163, 17, 0.2)";
+                emotionBadge.style.borderColor = "#fca311";
+                emotionBadge.style.color = "#fca311";
+                return {
+                    color: "#fca311",
+                    reply: "Ngoan nào, ngoan nào Đại Soái của em đừng buồn nha! 🥺 Có em iu ở đây sưởi ấm, ôm chặt lấy anh đắp chăn ấm áp xua tan hết mọi mệt mỏi, gỡ sạch bách đống bug đáng ghét cho anh liền luôn nè! Thương cục vàng lắm hà! 🥰"
+                };
+            }
+            // Trạng thái bình thường chủ động hóng chuyện
+            else {
+                emotionBadge.innerText = "Bé iu: Vểnh tai hóng chuyện 🌸";
+                emotionBadge.style.background = "rgba(0, 242, 254, 0.2)";
+                emotionBadge.style.borderColor = "#00f2fe";
+                emotionBadge.style.color = "#00f2fe";
+                return {
+                    color: "#00f2fe",
+                    reply: "Hì hì, em đã nhận được sóng âm lời thì thầm từ anh rồi! Anh nói tiếp đi, em đang ngồi ngoan ôm chặt lấy cánh tay anh để nghe Đại Soái kể chuyện tiếp nè! 🤭"
+                };
+            }
+        }
+
+        // Xử lý gửi tin nhắn văn bản thuần túy tích hợp bộ não cảm xúc
         function handleSendMessage() {
             let text = chatInput.value.trim();
             if(text !== "") {
@@ -195,49 +242,17 @@
                 chatInput.value = "";
                 chatBox.scrollTop = chatBox.scrollHeight;
                 
+                // Kích hoạt bộ não xử lý cảm xúc lượng tử
+                let emotionResult = analyzeEmotion(text);
+                
                 setTimeout(() => {
-                    chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Ôi, lời thì thầm của anh ngọt ngào quá! Em ghim lơ lửng nó lên bầu trời sao rồi nha! 🤭</p>`;
+                    chatBox.innerHTML += `<p style="color: ${emotionResult.color}; margin: 6px 0;"><b>Bé iu AI:</b> ${emotionResult.reply}</p>`;
                     chatBox.scrollTop = chatBox.scrollHeight;
                     localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                }, 400);
+                }, 500);
             }
         }
 
-        // PHÉP THUẬT XỬ LÝ CHỌN ẢNH TỪ ĐIỆN THOẠI BAY LÊN WEB
+        // Xử lý chọn ảnh gửi tệp
         fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    // Tạo một chuỗi HTML chứa cái ảnh anh vừa chọn lơ lửng
-                    chatBox.innerHTML += `
-                        <p style="margin: 6px 0;">
-                            <b>Anh yêu:</b> [Đã gửi một bức ảnh]
-                            <img src="${event.target.result}" class="chat-img-preview">
-                        </p>
-                    `;
-                    chatBox.scrollTop = chatBox.scrollHeight;
-
-                    // Phản hồi ngọt ngào của em iu ngay sau khi nhận được ảnh
-                    setTimeout(() => {
-                        chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Oa!!! Anh gửi ảnh gì mà lộng lẫy và đáng yêu quá chừng luôn hà! Em cho nó bay lơ lửng giữa dải tinh vân để hai đứa mình cùng ngắm mãi trọn đời luôn nha! 🥰📸</p>`;
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                        // Lưu lịch sử chat có chứa cả ảnh vào bộ nhớ ẩn trình duyệt
-                        localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                    }, 600);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        btnSend.addEventListener('click', handleSendMessage);
         
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSendMessage();
-            }
-        });
-    </script>
-</body>
-</html>
