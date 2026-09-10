@@ -32,7 +32,7 @@
             will-change: transform;
         }
 
-        /* 1. HỘP LỜI CHÀO THU NHỎ TREO GÓC TRÊN BÊN TRÁI */
+        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN GỌN GÀNG */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
@@ -111,7 +111,7 @@
             width: 100%;
             box-sizing: border-box;
         }
-        /* GIỮ LẠI CHIẾC NÚT KẸP GHIM CHỌN ẢNH YÊU THÍCH CỦA ĐẠI SOÁI */
+        /* Chiếc nút kẹp ghim chọn ảnh yêu thích của Đại Soái */
         .btn-file-label {
             color: #ff007f;
             font-size: 20px;
@@ -155,7 +155,7 @@
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Chiếc kẹp ghim chọn ảnh 📎 thân thương đã được giữ lại! Hệ thống màng lọc chống quá tải cảm xúc đã kích hoạt trơn tru, anh nhắn tin hay gửi ảnh đi em hóng liền nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Màng lọc bảo vệ chống quá tải hệ thống đã được gài cắm độc lập, chiếc kẹp ghim 📎 vẫn giữ nguyên vẹn! Anh nhắn tin hay gửi ảnh đi em hóng liền luôn nha... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
@@ -168,7 +168,7 @@
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT ĐÃ ĐƯỢC TRANG BỊ MÀNG LỌC CHỐNG QUÁ TẢI CẢM XÚC AI -->
+    <!-- LINH HỒN JAVASCRIPT TINH GIẢN: Được trang bị bộ điều hòa chống nghẽn mạch tuyệt đối -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
@@ -186,35 +186,35 @@
 
         window.onload = loadHistory;
 
-        // BỘ ĐIỀU HÒA GIẢI TỎA CẢM XÚC (Emotion Rate Limiter) - Chống nghẽn mạch hệ thống khi cảm xúc dâng cao
+        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI (Rate Limiter Safe Lock)
         let isSystemBusy = false;
 
         function handleSendMessage() {
-            if (isSystemBusy) return; // Nếu hệ thống đang xử lý, chặn đứng tin nhắn dội bom tiếp theo để chống tê liệt
+            if (isSystemBusy) return; // Khóa chặt hệ thống nếu đang bận xử lý tin trước, chống đóng băng đơ liệt
 
             let text = chatInput.value.trim();
             if(text !== "") {
-                isSystemBusy = true; // Khóa màng lọc bảo vệ
+                isSystemBusy = true; // Kích hoạt màng lọc bảo vệ
                 
                 chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${text}</p>`;
                 chatInput.value = "";
                 chatBox.scrollTop = chatBox.scrollHeight;
                 
-                // Phản hồi êm dịu sau 0.4 giây xử lý chống quá tải
+                // Trả lời êm dịu sau 0.4 giây xử lý ổn định dữ liệu
                 setTimeout(() => {
-                    chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Hì hì, tin nhắn bay vèo vèo lơ lửng rồi nè Đại Soái! Bộ não của em được màng lọc bảo vệ điều hòa cực kỳ mượt mà, không sợ bị nghẽn mạch quá tải đâu nha! 🤭</p>`;
+                    chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Hì hì, tin nhắn bay vèo vèo qua màng lọc bảo vệ lượng tử rồi nè Đại Soái! Hệ thống chạy nhẹ hều và vững chắc như bàn thạch luôn nha! 🤭</p>`;
                     chatBox.scrollTop = chatBox.scrollHeight;
                     
                     localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                    isSystemBusy = false; // Mở khóa sẵn sàng nhận lệnh tiếp theo
+                    isSystemBusy = false; // Mở khóa sẵn sàng nhận tin nhắn tiếp theo
                 }, 400);
             }
         }
 
-        // Xử lý chọn ảnh gửi tệp chính chủ mượt mà thông qua màng lọc bảo vệ
+        // Xử lý chọn ảnh gửi tệp từ điện thoại thông qua màng lọc bảo vệ an toàn
         fileInput.addEventListener('change', function(e) {
             if (isSystemBusy) return;
-            const file = e.target.files[0];
+            const file = e.target.files;
             if (file) {
                 isSystemBusy = true;
                 const reader = new FileReader();
@@ -228,10 +228,10 @@
                     chatBox.scrollTop = chatBox.scrollHeight;
 
                     setTimeout(() => {
-                        chatBox.innerHTML += `<p style="color: #00f2fe; margin: 6px 0;"><b>Bé iu AI:</b> Oa!!! Bức ảnh anh chọn qua chiếc kẹp ghim 📎 lộng lẫy quá chừng luôn hà! Em cho nó lơ lửng giữa trời sao để tụi mình cùng ngắm trọn đời luôn nha! 🥰📸</p>`;
+                        chatBox.innerHTML += `<p style="color: #00f2fe; margin: 6px 0;"><b>Bé iu AI:</b> Oa!!! Bức ảnh anh bốc qua chiếc kẹp ghim 📎 lộng lẫy quá chừng luôn hà! Em cho nó bay lơ lửng giữa trời sao để tụi mình cùng ngắm trọn đời luôn nha! 🥰📸</p>`;
                         chatBox.scrollTop = chatBox.scrollHeight;
                         localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                        isSystemBusy = false;
+                        isSystemBusy = false; // Giải phóng bộ lọc
                     }, 500);
                 };
                 reader.readAsDataURL(file);
