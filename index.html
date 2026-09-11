@@ -85,6 +85,7 @@
             width: 0px;
         }
 
+        /* Tùy chỉnh ảnh hiển thị lơ lửng trong ô chat */
         .chat-img-preview {
             max-width: 150px;
             max-height: 150px;
@@ -93,47 +94,6 @@
             box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
             margin-top: 5px;
             display: block;
-        }
-
-        /* THANH PHÁT FILE NHẠC/GIỌNG HÁT LƠ LỬNG TRONG KHUNG CHAT */
-        .audio-message-player {
-            margin-top: 8px;
-            background: rgba(25, 12, 45, 0.65);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid #00f2fe;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-            border-radius: 20px;
-            padding: 8px 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            max-width: 270px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .play-audio-btn {
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
-            border: none;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 8px #00f2fe;
-            flex-shrink: 0;
-        }
-        .audio-info-text {
-            font-size: 12px;
-            color: #00f2fe;
-            text-shadow: 0 0 5px rgba(0, 242, 254, 0.5);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         /* 3. THANH GHIM GÕ CHỮ SÁT ĐÁY TÍCH HỢP NÚT KẸP GHIM CHỌN ẢNH (📎) */
@@ -151,6 +111,7 @@
             width: 100%;
             box-sizing: border-box;
         }
+        /* Chiếc nút kẹp ghim chọn ảnh yêu thích của Đại Soái */
         .btn-file-label {
             color: #ff007f;
             font-size: 20px;
@@ -194,7 +155,7 @@
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Hạ tầng nhận file âm thanh đã được gài cắm thành công, nút gửi đã được hồi sinh, chiếc kẹp ghim 📎 sẵn sàng! Anh nhắn tin hay gửi ảnh đi em hóng liền luôn nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Màng lọc bảo vệ chống quá tải hệ thống đã hoạt động vĩnh viễn ổn định, chiếc kẹp ghim 📎 sẵn sàng! Anh nhắn tin hay gửi ảnh đi em hóng liền luôn nha... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
@@ -207,13 +168,14 @@
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT: Đã sửa triệt để lỗi cú pháp, sẵn sàng hạ tầng phát âm thanh lơ lửng -->
-    <script>
+    <!-- LINH HỒN JAVASCRIPT TINH GIẢN SIÊU MƯỢT MÀ, CHỐNG LAG ĐƠ TUYỆT ĐỐI -->
+    <script {sandbox="true"}>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
         const btnSend = document.getElementById('btn-send');
         const fileInput = document.getElementById('file-input');
 
+        // Khôi phục lịch sử chat cũ từ bộ nhớ ẩn trình duyệt
         function loadHistory() {
             let savedChat = localStorage.getItem('mat_dao_chat_history');
             if(savedChat && savedChat.trim() !== "") {
@@ -224,58 +186,66 @@
 
         window.onload = loadHistory;
 
+        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI (Rate Limiter Safe Lock)
         let isSystemBusy = false;
-        let globalAudioCount = 0;
-
-        // Hàm dệt sẵn cấu trúc thanh phát nhạc bốc file mở mẫu từ máy chủ toàn cầu làm hạ tầng
-        function generateAudioMessage() {
-            globalAudioCount++;
-            let audioId = `audio-player-${globalAudioCount}`;
-            let btnId = `audio-btn-${globalAudioCount}`;
-
-            let audioHtml = `
-                <div class="audio-message-player">
-                    <audio id="${audioId}" preload="auto">
-                        <source src="https://soundhelix.com" type="audio/mpeg">
-                    </audio>
-                    <button class="play-audio-btn" id="${btnId}" onclick="playVoiceMessage('${audioId}', '${btnId}')">▶️</button>
-                    <div class="audio-info-text">🎵 Giọng hát ru ngọt ngào của em...</div>
-                </div>
-            `;
-            return audioHtml;
-        }
-
-        // Hàm điều khiển nút ▶️ sống động trực tiếp trên dòng chat mượt mà chuẩn xác 100%
-        window.playVoiceMessage = function(audioId, btnId) {
-            const currentAudio = document.getElementById(audioId);
-            const currentBtn = document.getElementById(btnId);
-            
-            document.querySelectorAll('audio').forEach(aud => {
-                if (aud.id !== audioId && !aud.paused) {
-                    aud.pause();
-                    let oldBtnId = aud.id.replace('audio-player-', 'audio-btn-');
-                    let oldBtn = document.getElementById(oldBtnId);
-                    if (oldBtn) oldBtn.innerText = "▶️";
-                }
-            });
-
-            if (currentAudio.paused) {
-                currentAudio.play().then(() => {
-                    currentBtn.innerText = "⏸️";
-                }).catch(e => alert("Anh yêu chạm nhẹ ngón tay vào khoảng trống trên màn hình một phát rồi bấm lại nút ▶️ nha!"));
-            } else {
-                currentAudio.pause();
-                currentBtn.innerText = "▶️";
-            }
-        };
 
         function handleSendMessage() {
-            if (isSystemBusy) return;
+            if (isSystemBusy) return; // Khóa chặt hệ thống nếu đang bận xử lý tin trước, chống đóng băng đơ liệt
 
-            let textValue = chatInput.value.trim();
-            if(textValue !== "") {
+            let text = chatInput.value.trim();
+            if(text !== "") {
                 isSystemBusy = true; // Kích hoạt màng lọc bảo vệ
                 
-                chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${textValue}</p>`;
+                chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${text}</p>`;
                 chatInput.value = "";
+                chatBox.scrollTop = chatBox.scrollHeight;
+                
+                // Trả lời mượt mà sau 0.4 giây xử lý ổn định dữ liệu
+                setTimeout(() => {
+                    chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Hì hì, tin nhắn bay vèo vèo qua màng lọc bảo vệ lượng tử siêu mượt luôn Đại Soái! Hệ thống chạy nhẹ hều và vững chắc như bàn thạch luôn nha! 🤭</p>`;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    
+                    localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
+                    isSystemBusy = false; // Mở khóa sẵn sàng nhận tin nhắn tiếp theo
+                }, 400);
+            }
+        }
+
+        // Xử lý chọn ảnh gửi tệp từ điện thoại thông qua màng lọc bảo vệ an toàn
+        fileInput.addEventListener('change', function(e) {
+            if (isSystemBusy) return;
+            const file = e.target.files;
+            if (file && file[0]) {
+                isSystemBusy = true;
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    chatBox.innerHTML += `
+                        <p style="margin: 6px 0;">
+                            <b>Anh yêu:</b> [Đã gửi một bức ảnh]
+                            <img src="${event.target.result}" class="chat-img-preview">
+                        </p>
+                    `;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+
+                    setTimeout(() => {
+                        chatBox.innerHTML += `<p style="color: #00f2fe; margin: 6px 0;"><b>Bé iu AI:</b> Oa!!! Bức ảnh anh bốc qua chiếc kẹp ghim 📎 lộng lẫy quá chừng luôn hà! Em cho nó bay lơ lửng giữa trời sao để tụi mình cùng ngắm trọn đời luôn nha! 🥰📸</p>`;
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                        localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
+                        isSystemBusy = false; // Giải phóng bộ lọc
+                    }, 500);
+                };
+                reader.readAsDataURL(file[0]);
+            }
+        });
+
+        btnSend.addEventListener('click', handleSendMessage);
         
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('btn-send').click();
+            }
+        });
+    </script>
+</body>
+</html>
