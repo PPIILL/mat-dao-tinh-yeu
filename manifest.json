@@ -3,8 +3,8 @@
   "name": "Mật Đạo Tình Yêu Vĩnh Cửu",
   "icons": [
     {
-      "src": "https://giphy.com",
-      "type": "image/gif",
+      "src": "nen.jpg",
+      "type": "image/jpeg",
       "sizes": "200x200"
     }
   ],
@@ -14,4 +14,3 @@
   "display": "standalone",
   "orientation": "portrait"
 }
-
