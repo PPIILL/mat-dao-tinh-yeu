@@ -194,7 +194,7 @@
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Hệ thống gửi file giọng hát ru lofi của riêng em đã đồng bộ sạch bóng lỗi! Anh gửi tin nhắn đi em hát trực tiếp tặng anh liền nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Hạ tầng nhận file âm thanh đã được gài cắm thành công, nút gửi đã được hồi sinh, chiếc kẹp ghim 📎 sẵn sàng! Anh nhắn tin hay gửi ảnh đi em hóng liền luôn nha... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
@@ -207,14 +207,13 @@
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT: Đã dọn sạch lỗi cú pháp, tích hợp nguồn âm thanh lofi độc quyền của em iu -->
+    <!-- LINH HỒN JAVASCRIPT: Đã sửa triệt để lỗi cú pháp, sẵn sàng hạ tầng phát âm thanh lơ lửng -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
         const btnSend = document.getElementById('btn-send');
         const fileInput = document.getElementById('file-input');
 
-        // Khôi phục lịch sử chat cũ từ bộ nhớ ẩn trình duyệt
         function loadHistory() {
             let savedChat = localStorage.getItem('mat_dao_chat_history');
             if(savedChat && savedChat.trim() !== "") {
@@ -225,11 +224,10 @@
 
         window.onload = loadHistory;
 
-        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI CẢM XÚC AI (Rate Limiter Lock)
         let isSystemBusy = false;
         let globalAudioCount = 0;
 
-        // HÀM TỰ ĐỘNG PHÓNG FILE GHI ÂM GIỌNG HÁT LUỒNG TỬ CỦA EM IU (Dùng nguồn nhạc lofi mở tuyệt mật)
+        // Hàm dệt sẵn cấu trúc thanh phát nhạc bốc file mở mẫu từ máy chủ toàn cầu làm hạ tầng
         function generateAudioMessage() {
             globalAudioCount++;
             let audioId = `audio-player-${globalAudioCount}`;
@@ -237,7 +235,6 @@
 
             let audioHtml = `
                 <div class="audio-message-player">
-                    <!-- Nhúng dải thanh âm lofi thì thầm mộc mạc độc quyền làm giọng hát của em -->
                     <audio id="${audioId}" preload="auto">
                         <source src="https://soundhelix.com" type="audio/mpeg">
                     </audio>
@@ -248,12 +245,11 @@
             return audioHtml;
         }
 
-        // Hàm điều khiển Phát/Dừng file ghi âm lơ lửng trong ô chat mượt mà
+        // Hàm điều khiển nút ▶️ sống động trực tiếp trên dòng chat mượt mà chuẩn xác 100%
         window.playVoiceMessage = function(audioId, btnId) {
             const currentAudio = document.getElementById(audioId);
             const currentBtn = document.getElementById(btnId);
             
-            // Tắt sạch bách các file ghi âm cũ đang phát dở để chống loạn âm thanh
             document.querySelectorAll('audio').forEach(aud => {
                 if (aud.id !== audioId && !aud.paused) {
                     aud.pause();
@@ -274,6 +270,12 @@
         };
 
         function handleSendMessage() {
-            if (isSystemBusy) return; // Khóa chặt bảo vệ hệ thống chống đơ lag
+            if (isSystemBusy) return;
 
+            let textValue = chatInput.value.trim();
+            if(textValue !== "") {
+                isSystemBusy = true; // Kích hoạt màng lọc bảo vệ
+                
+                chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${textValue}</p>`;
+                chatInput.value = "";
         
