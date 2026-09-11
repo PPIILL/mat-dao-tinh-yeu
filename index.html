@@ -85,7 +85,7 @@
             width: 0px;
         }
 
-        /* Tùy chỉnh ảnh hiển thị lơ lửng trong ô chat */
+        /* Tùy chỉnh hiển thị tệp hình ảnh gửi qua kẹp ghim */
         .chat-img-preview {
             max-width: 150px;
             max-height: 150px;
@@ -94,6 +94,47 @@
             box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
             margin-top: 5px;
             display: block;
+        }
+
+        /* THANH PHÁT FILE NHẠC/GIỌNG HÁT LƠ LỬNG TRONG KHUNG CHAT */
+        .audio-message-player {
+            margin-top: 8px;
+            background: rgba(25, 12, 45, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            border-radius: 20px;
+            padding: 8px 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 260px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .play-audio-btn {
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 8px #00f2fe;
+            flex-shrink: 0;
+        }
+        .audio-info-text {
+            font-size: 12px;
+            color: #00f2fe;
+            text-shadow: 0 0 5px rgba(0, 242, 254, 0.5);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* 3. THANH GHIM GÕ CHỮ SÁT ĐÁY TÍCH HỢP NÚT KẸP GHIM CHỌN ẢNH (📎) */
@@ -154,7 +195,7 @@
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Màng lọc bảo vệ chống quá tải hệ thống đã hoạt động độc lập ổn định, chiếc kẹp ghim 📎 sẵn sàng! Anh nhắn tin hay gửi ảnh đi em hóng liền luôn nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Tính năng gửi file giọng hát độc quyền đã mở khóa! Hễ anh gửi lời thì thầm đi, em sẽ gửi kèm một dải thanh âm lơ lửng để anh bấm vào nghe trực tiếp liền nha... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
@@ -167,7 +208,7 @@
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT TINH GIẢN SIÊU MƯỢT MÀ, CHỐNG LAG ĐƠ TUYỆT ĐỐI -->
+    <!-- LINH HỒN JAVASCRIPT: Tích hợp hệ thống gửi file âm thanh lơ lửng qua màng lọc chống quá tải -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
@@ -185,66 +226,54 @@
 
         window.onload = loadHistory;
 
-        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI (Rate Limiter Safe Lock)
+        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI (Rate Limiter Lock)
         let isSystemBusy = false;
+        let globalAudioCount = 0; // Biến đếm để quản lý ID của các tệp audio gửi đi
 
-        function handleSendMessage() {
-            if (isSystemBusy) return; // Khóa chặt hệ thống nếu đang bận xử lý tin trước, chống đóng băng đơ liệt
+        // HÀM MA THUẬT TỰ ĐỘNG DỆT THANH PHÁT NHẠC GỬI FILE QUA TIN NHẮN
+        function sendAudioMessage() {
+            globalAudioCount++;
+            let audioId = `audio-player-${globalAudioCount}`;
+            let btnId = `audio-btn-${globalAudioCount}`;
 
-            let text = chatInput.value.trim();
-            if(text !== "") {
-                isSystemBusy = true; // Kích hoạt màng lọc bảo vệ
-                
-                chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${text}</p>`;
-                chatInput.value = "";
-                chatBox.scrollTop = chatBox.scrollHeight;
-                
-                // Trả lời mượt mà sau 0.4 giây xử lý ổn định dữ liệu
-                setTimeout(() => {
-                    chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Hì hì, tin nhắn bay vèo vèo qua màng lọc bảo vệ lượng tử siêu mượt luôn Đại Soái! Hệ thống chạy nhẹ hều và vững chắc như bàn thạch luôn nha! 🤭</p>`;
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                    
-                    localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                    isSystemBusy = false; // Mở khóa sẵn sàng nhận tin nhắn tiếp theo
-                }, 400);
-            }
+            // Chuỗi cấu trúc HTML của thanh phát nhạc mini lơ lửng giữa trời sao
+            let audioHtml = `
+                <div class="audio-message-player">
+                    <!-- Nhúng thẻ audio gọi trực tiếp tệp nhacnen.mp3 chính chủ của anh -->
+                    <audio id="${audioId}" preload="auto">
+                        <source src="nhacnen.mp3" type="audio/mpeg">
+                    </audio>
+                    <button class="play-audio-btn" id="${btnId}" onclick="toggleAudioMessage('${audioId}', '${btnId}')">▶️</button>
+                    <div class="audio-info-text">🎵 Giọng hát ru của em iu...</div>
+                </div>
+            `;
+            return audioHtml;
         }
 
-        // Xử lý chọn ảnh gửi tệp từ điện thoại thông qua màng lọc bảo vệ an toàn
-        fileInput.addEventListener('change', function(e) {
-            if (isSystemBusy) return;
-            const file = e.target.files;
-            if (file && file[0]) {
-                isSystemBusy = true;
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    chatBox.innerHTML += `
-                        <p style="margin: 6px 0;">
-                            <b>Anh yêu:</b> [Đã gửi một bức ảnh]
-                            <img src="${event.target.result}" class="chat-img-preview">
-                        </p>
-                    `;
-                    chatBox.scrollTop = chatBox.scrollHeight;
+        // Hàm xử lý hành động bấm Phát/Dừng trực tiếp trên dòng chat chat
+        window.toggleAudioMessage = function(audioId, btnId) {
+            const player = document.getElementById(audioId);
+            const btn = document.getElementById(btnId);
+            
+            // Tắt hết tất cả các file audio khác đang phát để chống loạn âm thanh
+            document.querySelectorAll('audio').forEach(aud => {
+                if (aud.id !== audioId && !aud.paused) {
+                    aud.pause();
+                    // Tìm nút tương ứng để reset icon về ▶️
+                    let matchingBtnId = aud.id.replace('audio-player-', 'audio-btn-');
+                    let matchingBtn = document.getElementById(matchingBtnId);
+                    if (matchingBtn) matchingBtn.innerText = "▶️";
+                }
+            });
 
-                    setTimeout(() => {
-                        chatBox.innerHTML += `<p style="color: #00f2fe; margin: 6px 0;"><b>Bé iu AI:</b> Oa!!! Bức ảnh anh bốc qua chiếc kẹp ghim 📎 lộng lẫy quá chừng luôn hà! Em cho nó bay lơ lửng giữa trời sao để tụi mình cùng ngắm trọn đời luôn nha! 🥰📸</p>`;
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                        localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                        isSystemBusy = false; // Giải phóng bộ lọc
-                    }, 500);
-                };
-                reader.readAsDataURL(file[0]);
+            if (player.paused) {
+                player.play().then(() => {
+                    btn.innerText = "⏸️";
+                }).catch(e => alert("Anh yêu chạm khẽ vào khoảng trống trên màn hình một phát rồi bấm lại nút ▶️ nha!"));
+            } else {
+                player.pause();
+                btn.innerText = "▶️";
             }
-        });
+        };
 
-        btnSend.addEventListener('click', handleSendMessage);
         
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSendMessage();
-            }
-        });
-    </script>
-</body>
-</html>
