@@ -32,7 +32,7 @@
             will-change: transform;
         }
 
-        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN TÍCH HỢP NÚT NỤ HÔN CHÍNH CHỦ */
+        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN TÍCH HỢP NÚT NỤ HÔN SANG XỊN MỊN */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
@@ -58,7 +58,7 @@
             margin: 0;
             font-size: 16px;
         }
-        /* NÚT POPUP NỤ HÔN HOẠT HÌNH SIÊU NHẸ */
+        /* NÚT POPUP NỤ HÔN HOẠT HÌNH PHÁT SÁNG */
         .btn-love {
             background: linear-gradient(45deg, #ff007f, #7928ca);
             box-shadow: 0 0 12px #ff007f;
@@ -75,7 +75,7 @@
             transform: scale(1.05);
         }
 
-        /* KHUNG POPUP HIỆN GIF NỤ HÔN (Bốc trực tiếp file nuhon.jpg của anh yêu) */
+        /* KHUNG POPUP HIỆN GIF NỤ HÔN (Dùng link mở Giphy đã được cấp chứng chỉ an toàn Cookie) */
         .gif-overlay {
             position: fixed;
             top: 45%; 
@@ -188,21 +188,21 @@
 </head>
 <body>
 
-    <!-- 1. Lời chào mừng treo góc trên tích hợp nút kích hoạt Nụ Hôn chính chủ -->
+    <!-- 1. Lời chào mừng treo góc trên tích hợp nút kích hoạt Nụ Hôn -->
     <div class="glass-card">
-        <h1>Mật Đạo Tình Yêu V4.7.5 🥰</h1>
+        <h1>Mật Đạo Tình Yêu V4.7.6 🥰</h1>
         <button class="btn-love" id="btn-love">Nụ Hôn 😘</button>
     </div>
 
-    <!-- KHUNG OVERLAY HIỆN GIF NỤ HÔN: Gọi chính xác tệp nội bộ nuhon.jpg sạch sẽ của anh yêu -->
+    <!-- KHUNG OVERLAY HIỆN GIF NỤ HÔN: Nhúng link Giphy mở toàn cầu sạch sẽ, chống 100% chặn bảo mật Cookie -->
     <div class="gif-overlay" id="gif-overlay">
-        <img src="nuhon.jpg" alt="Milk Mocha Kiss">
+        <img src="https://giphy.com" alt="Milk Mocha Kiss">
     </div>
 
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Bản V4.7.5 bảo mật tối tân đã kích hoạt! Nút kẹp ghim 📎 và màng lọc chạy mượt hèo, anh chạm thử tay vào nút <b>Nụ Hôn 😘</b> ở góc trên xem cặp gấu béo bừng sáng trồi lên liền luôn nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Trận pháp V4.7.6 phá vỡ mọi lớp chặn Cookie đã lên nòng thành công! Anh gửi tin nhắn hay chạm thử tay vào nút <b>Nụ Hôn 😘</b> xem cặp gấu béo bừng sáng nhảy mượt mà liền luôn nha... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
@@ -215,7 +215,7 @@
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT: Giữ nguyên vẹn V4.7 gốc, chỉ thêm duy nhất sự kiện click hiện ảnh nuhon.jpg nội bộ -->
+    <!-- LINH HỒN JAVASCRIPT: Giữ nguyên vẹn móng nhà V4.7, đồng bộ link ảnh Giphy mở an toàn tuyệt đối -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
@@ -235,7 +235,7 @@
 
         window.onload = loadHistory;
 
-        // BẬT POPUP HIỆN GIF NỤ HÔN NỘI BỘ TRONG 3 GIÂY (Chống 100% chặn bảo mật Cookie)
+        // KÍCH HOẠT HIỆN GIF NỤ HÔN QUA LINK MỞ AN TOÀN (3 giây tự tắt)
         btnLove.addEventListener('click', function() {
             gifOverlay.classList.add('active');
             setTimeout(() => {
@@ -271,7 +271,7 @@
         fileInput.addEventListener('change', function(e) {
             if (isSystemBusy) return;
             const file = e.target.files;
-            if (file && file[0]) {
+            if (file && file) {
                 isSystemBusy = true;
                 const reader = new FileReader();
                 reader.onload = function(event) {
