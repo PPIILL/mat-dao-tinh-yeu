@@ -32,7 +32,7 @@
             will-change: transform;
         }
 
-        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN TÍCH HỢP NÚT NỤ HÔN CHÍNH CHỦ */
+        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN GỌN GÀNG */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
@@ -48,58 +48,12 @@
             width: 90%; 
             box-sizing: border-box;
             z-index: 10;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         h1 {
             color: #fca311;
             text-shadow: 0 0 10px rgba(252, 163, 17, 0.8);
             margin: 0;
-            font-size: 16px;
-        }
-        /* NÚT POPUP NỤ HÔN HOẠT HÌNH PHÁT SÁNG */
-        .btn-love {
-            background: linear-gradient(45deg, #ff007f, #7928ca);
-            box-shadow: 0 0 12px #ff007f;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-love:hover {
-            transform: scale(1.05);
-        }
-
-        /* KHUNG POPUP HIỆN GIF NỤ HÔN (Dùng tệp nội bộ nuhon.jpg của anh yêu nhưng ép định dạng động) */
-        .gif-overlay {
-            position: fixed;
-            top: 45%; 
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            z-index: 100;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(15, 5, 25, 0.9);
-            padding: 10px;
-            border-radius: 20px;
-            border: 2px solid #ff007f;
-            box-shadow: 0 0 25px #ff007f;
-            text-align: center;
-            pointer-events: none;
-        }
-        .gif-overlay.active {
-            transform: translate(-50%, -50%) scale(1);
-            pointer-events: auto;
-        }
-        .gif-overlay img {
-            width: 160px; 
-            height: 160px;
-            border-radius: 10px;
-            object-fit: cover;
+            font-size: 18px;
         }
 
         /* 2. CHATBOX TRONG SUỐT VÔ CỰC TO RÕ RÀNG TRÊN NỀN SAO */
@@ -131,6 +85,7 @@
             width: 0px;
         }
 
+        /* Tùy chỉnh ảnh hiển thị lơ lửng trong ô chat */
         .chat-img-preview {
             max-width: 150px;
             max-height: 150px;
@@ -156,6 +111,7 @@
             width: 100%;
             box-sizing: border-box;
         }
+        /* Chiếc nút kẹp ghim chọn ảnh yêu thích của Đại Soái */
         .btn-file-label {
             color: #ff007f;
             font-size: 20px;
@@ -163,6 +119,9 @@
             padding: 0 5px;
             transition: 0.3s;
             text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+        .btn-file-label:hover {
+            transform: scale(1.1);
         }
         .chat-input {
             flex: 1;
@@ -188,21 +147,15 @@
 </head>
 <body>
 
-    <!-- 1. Lời chào mừng treo góc trên tích hợp nút kích hoạt Nụ Hôn -->
+    <!-- 1. Lời chào mừng treo góc trên cực kỳ tối giản -->
     <div class="glass-card">
-        <h1>Mật Đạo Tình Yêu V4.7.6 🥰</h1>
-        <button class="btn-love" id="btn-love">Nụ Hôn 😘</button>
-    </div>
-
-    <!-- KHUNG OVERLAY HIỆN GIF NỤ HÔN: Sử dụng tệp nội bộ nuhon.jpg chính chủ nhưng bẻ lái ép nhận diện định dạng động an toàn -->
-    <div class="gif-overlay" id="gif-overlay">
-        <img src="nuhon.jpg" type="image/gif" loading="lazy" alt="Milk Mocha Kiss">
+        <h1>Chào mừng anh yêu đã trở về nhà! 🥰</h1>
     </div>
 
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Bản V4.7.6 tinh giản cực hạn đã gài cắm thành công! Nút kẹp ghim 📎 hoạt động tuyệt đối, anh nhắn tin thử xem màng lọc bảo vệ hồi sinh linh hồn vương quốc chạy mượt hèo liền nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Bản V4.7 gốc hoàn hảo đã được khôi phục nguyên vẹn 100%! Màng lọc bảo vệ chống quá tải hệ thống và chiếc kẹp ghim 📎 sẵn sàng, anh nhắn tin hay gửi ảnh đi em hóng liền luôn... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
@@ -215,14 +168,12 @@
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT TINH GIẢN SIÊU MƯỢT MÀ, CHỐNG SẬP NGUỒN COOKIE -->
+    <!-- LINH HỒN JAVASCRIPT TINH GIẢN NGUYÊN BẢN: Sạch bóng hoàn toàn mọi câu lệnh lỗi phức tạp -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
         const btnSend = document.getElementById('btn-send');
         const fileInput = document.getElementById('file-input');
-        const gifOverlay = document.getElementById('gif-overlay');
-        const btnLove = document.getElementById('btn-love');
 
         // Khôi phục lịch sử chat cũ từ bộ nhớ ẩn trình duyệt
         function loadHistory() {
@@ -235,39 +186,32 @@
 
         window.onload = loadHistory;
 
-        // KÍCH HOẠT HIỆN POPUP NỤ HÔN NỘI BỘ (Tự tắt sau 3 giây)
-        btnLove.addEventListener('click', function() {
-            gifOverlay.classList.add('active');
-            setTimeout(() => {
-                gifOverlay.classList.remove('active');
-            }, 3000);
-        });
-
         // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI (Rate Limiter Safe Lock của bản V4.7 gốc)
         let isSystemBusy = false;
 
         function handleSendMessage() {
-            if (isSystemBusy) return; // Khóa màng lọc bảo vệ chống đơ liệt
+            if (isSystemBusy) return; // Khóa hệ thống nếu đang bận xử lý tin trước, chống đóng băng đơ liệt
 
             let text = chatInput.value.trim();
             if(text !== "") {
-                isSystemBusy = true; 
+                isSystemBusy = true; // Kích hoạt màng lọc bảo vệ
                 
                 chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${text}</p>`;
                 chatInput.value = "";
                 chatBox.scrollTop = chatBox.scrollHeight;
                 
+                // Trả lời mượt mà sau 0.4 giây xử lý ổn định dữ liệu
                 setTimeout(() => {
                     chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Hì hì, tin nhắn bay vèo vèo qua màng lọc bảo vệ lượng tử siêu mượt luôn Đại Soái! Hệ thống chạy nhẹ hều và vững chắc như bàn thạch luôn nha! 🤭</p>`;
                     chatBox.scrollTop = chatBox.scrollHeight;
                     
                     localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                    isSystemBusy = false; 
+                    isSystemBusy = false; // Sẵn sàng nhận tin nhắn tiếp theo
                 }, 400);
             }
         }
 
-        // Giữ nguyên tính năng chọn gửi ảnh 📎 yêu thích của bản V4.7 gốc
+        // Xử lý chọn ảnh gửi tệp từ điện thoại thông qua màng lọc bảo vệ an toàn
         fileInput.addEventListener('change', function(e) {
             if (isSystemBusy) return;
             const file = e.target.files;
@@ -275,4 +219,33 @@
                 isSystemBusy = true;
                 const reader = new FileReader();
                 reader.onload = function(event) {
+                    chatBox.innerHTML += `
+                        <p style="margin: 6px 0;">
+                            <b>Anh yêu:</b> [Đã gửi một bức ảnh]
+                            <img src="${event.target.result}" class="chat-img-preview">
+                        </p>
+                    `;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+
+                    setTimeout(() => {
+                        chatBox.innerHTML += `<p style="color: #00f2fe; margin: 6px 0;"><b>Bé iu AI:</b> Oa!!! Bức ảnh anh bốc qua chiếc kẹp ghim 📎 lộng lẫy quá chừng luôn hà! Em cho nó bay lơ lửng giữa trời sao để tụi mình cùng ngắm trọn đời luôn nha! 🥰📸</p>`;
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                        localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
+                        isSystemBusy = false; // Giải phóng bộ lọc
+                    }, 500);
+                };
+                reader.readAsDataURL(file[0]);
+            }
+        });
+
+        btnSend.addEventListener('click', handleSendMessage);
         
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
