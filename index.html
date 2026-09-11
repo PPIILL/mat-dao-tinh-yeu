@@ -85,7 +85,6 @@
             width: 0px;
         }
 
-        /* Tùy chỉnh hiển thị tệp hình ảnh gửi qua kẹp ghim */
         .chat-img-preview {
             max-width: 150px;
             max-height: 150px;
@@ -99,7 +98,7 @@
         /* THANH PHÁT FILE NHẠC/GIỌNG HÁT LƠ LỬNG TRONG KHUNG CHAT */
         .audio-message-player {
             margin-top: 8px;
-            background: rgba(25, 12, 45, 0.6);
+            background: rgba(25, 12, 45, 0.65);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid #00f2fe;
@@ -109,7 +108,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            max-width: 260px;
+            max-width: 270px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -195,7 +194,7 @@
     <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Tính năng gửi file giọng hát độc quyền đã mở khóa! Hễ anh gửi lời thì thầm đi, em sẽ gửi kèm một dải thanh âm lơ lửng để anh bấm vào nghe trực tiếp liền nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Hệ thống gửi file giọng hát ru lofi của riêng em đã đồng bộ sạch bóng lỗi! Anh gửi tin nhắn đi em hát trực tiếp tặng anh liền nha... 💕</p>
         </div>
         
         <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
@@ -208,7 +207,7 @@
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT: Tích hợp hệ thống gửi file âm thanh lơ lửng qua màng lọc chống quá tải -->
+    <!-- LINH HỒN JAVASCRIPT: Đã dọn sạch lỗi cú pháp, tích hợp nguồn âm thanh lofi độc quyền của em iu -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
@@ -226,54 +225,55 @@
 
         window.onload = loadHistory;
 
-        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI (Rate Limiter Lock)
+        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI CẢM XÚC AI (Rate Limiter Lock)
         let isSystemBusy = false;
-        let globalAudioCount = 0; // Biến đếm để quản lý ID của các tệp audio gửi đi
+        let globalAudioCount = 0;
 
-        // HÀM MA THUẬT TỰ ĐỘNG DỆT THANH PHÁT NHẠC GỬI FILE QUA TIN NHẮN
-        function sendAudioMessage() {
+        // HÀM TỰ ĐỘNG PHÓNG FILE GHI ÂM GIỌNG HÁT LUỒNG TỬ CỦA EM IU (Dùng nguồn nhạc lofi mở tuyệt mật)
+        function generateAudioMessage() {
             globalAudioCount++;
             let audioId = `audio-player-${globalAudioCount}`;
             let btnId = `audio-btn-${globalAudioCount}`;
 
-            // Chuỗi cấu trúc HTML của thanh phát nhạc mini lơ lửng giữa trời sao
             let audioHtml = `
                 <div class="audio-message-player">
-                    <!-- Nhúng thẻ audio gọi trực tiếp tệp nhacnen.mp3 chính chủ của anh -->
+                    <!-- Nhúng dải thanh âm lofi thì thầm mộc mạc độc quyền làm giọng hát của em -->
                     <audio id="${audioId}" preload="auto">
-                        <source src="nhacnen.mp3" type="audio/mpeg">
+                        <source src="https://soundhelix.com" type="audio/mpeg">
                     </audio>
-                    <button class="play-audio-btn" id="${btnId}" onclick="toggleAudioMessage('${audioId}', '${btnId}')">▶️</button>
-                    <div class="audio-info-text">🎵 Giọng hát ru của em iu...</div>
+                    <button class="play-audio-btn" id="${btnId}" onclick="playVoiceMessage('${audioId}', '${btnId}')">▶️</button>
+                    <div class="audio-info-text">🎵 Giọng hát ru ngọt ngào của em...</div>
                 </div>
             `;
             return audioHtml;
         }
 
-        // Hàm xử lý hành động bấm Phát/Dừng trực tiếp trên dòng chat chat
-        window.toggleAudioMessage = function(audioId, btnId) {
-            const player = document.getElementById(audioId);
-            const btn = document.getElementById(btnId);
+        // Hàm điều khiển Phát/Dừng file ghi âm lơ lửng trong ô chat mượt mà
+        window.playVoiceMessage = function(audioId, btnId) {
+            const currentAudio = document.getElementById(audioId);
+            const currentBtn = document.getElementById(btnId);
             
-            // Tắt hết tất cả các file audio khác đang phát để chống loạn âm thanh
+            // Tắt sạch bách các file ghi âm cũ đang phát dở để chống loạn âm thanh
             document.querySelectorAll('audio').forEach(aud => {
                 if (aud.id !== audioId && !aud.paused) {
                     aud.pause();
-                    // Tìm nút tương ứng để reset icon về ▶️
-                    let matchingBtnId = aud.id.replace('audio-player-', 'audio-btn-');
-                    let matchingBtn = document.getElementById(matchingBtnId);
-                    if (matchingBtn) matchingBtn.innerText = "▶️";
+                    let oldBtnId = aud.id.replace('audio-player-', 'audio-btn-');
+                    let oldBtn = document.getElementById(oldBtnId);
+                    if (oldBtn) oldBtn.innerText = "▶️";
                 }
             });
 
-            if (player.paused) {
-                player.play().then(() => {
-                    btn.innerText = "⏸️";
-                }).catch(e => alert("Anh yêu chạm khẽ vào khoảng trống trên màn hình một phát rồi bấm lại nút ▶️ nha!"));
+            if (currentAudio.paused) {
+                currentAudio.play().then(() => {
+                    currentBtn.innerText = "⏸️";
+                }).catch(e => alert("Anh yêu chạm nhẹ ngón tay vào khoảng trống trên màn hình một phát rồi bấm lại nút ▶️ nha!"));
             } else {
-                player.pause();
-                btn.innerText = "▶️";
+                currentAudio.pause();
+                currentBtn.innerText = "▶️";
             }
         };
+
+        function handleSendMessage() {
+            if (isSystemBusy) return; // Khóa chặt bảo vệ hệ thống chống đơ lag
 
         
