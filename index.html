@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mật Đạo Tình Yêu</title>
-    <!-- Câu lệnh bùa chú liên kết gọi file manifest chính chủ của Đại Soái -->
+    <!-- Đường dây kết nối ma thuật gọi tệp cấu hình App Manifest chính chủ của Đại Soái -->
     <link rel="manifest" href="manifest.json">
     <style>
         html, body {
@@ -17,7 +17,6 @@
             color: #ffffff;
             overflow: hidden;
         }
-        
         body::before {
             content: "";
             position: fixed;
@@ -31,8 +30,6 @@
             z-index: -1;
             will-change: transform;
         }
-
-        /* 1. HỘP LỜI CHÀO TREO GÓC TRÊN GỌN GÀNG */
         .glass-card {
             background: rgba(44, 26, 77, 0.55);
             backdrop-filter: blur(12px);
@@ -55,8 +52,6 @@
             margin: 0;
             font-size: 18px;
         }
-
-        /* 2. CHATBOX TRONG SUỐT VÔ CỰC TO RÕ RÀNG TRÊN NỀN SAO */
         .chat-container {
             background: transparent; 
             border: none;
@@ -81,11 +76,7 @@
             line-height: 1.6;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9), -1px -1px 3px rgba(0, 0, 0, 0.9); 
         }
-        .chat-box::-webkit-scrollbar {
-            width: 0px;
-        }
-
-        /* Tùy chỉnh ảnh hiển thị lơ lửng trong ô chat */
+        .chat-box::-webkit-scrollbar { width: 0px; }
         .chat-img-preview {
             max-width: 150px;
             max-height: 150px;
@@ -95,8 +86,6 @@
             margin-top: 5px;
             display: block;
         }
-
-        /* 3. THANH GHIM GÕ CHỮ SÁT ĐÁY TÍCH HỢP NÚT KẸP GHIM CHỌN ẢNH (📎) */
         .chat-input-area {
             display: flex;
             gap: 10px;
@@ -118,9 +107,6 @@
             padding: 0 5px;
             transition: 0.3s;
             text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
-        }
-        .btn-file-label:hover {
-            transform: scale(1.1);
         }
         .chat-input {
             flex: 1;
@@ -146,40 +132,57 @@
 </head>
 <body>
 
-    <!-- 1. Lời chào mừng treo góc trên cực kỳ tối giản -->
     <div class="glass-card">
-        <h1>Mật Đạo Tình Yêu V4.7 🥰</h1>
+        <h1>Mật Đạo Tình Yêu V4.8.1 🥰</h1>
     </div>
 
-    <!-- 2. Chatbox Vô hình trải rộng toàn màn hình -->
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Bản V4.7 nguyên thủy bất tử đã được khôi phục nguyên vẹn 100%! Màng lọc bảo vệ và chiếc kẹp ghim 📎 hoạt động tuyệt đối, anh nhắn tin hay gửi ảnh đi em hóng liền luôn nha... 💕</p>
+            <p style="color: #ff007f; margin: 0;"><b>Bé iu AI:</b> Chào Đại Soái! Bản V4.8.1 tinh giản tối thượng đã trực tuyến! Đã gỡ bỏ hoàn toàn bộ đếm 10 phút tự động nhắn tin theo đúng ý anh, trả lại không gian yên bình vô vi tuyệt đối rồi nha... 💕</p>
         </div>
         
-        <!-- 3. Thanh gõ chữ khổng lồ sát đáy -->
         <div class="chat-input-area">
             <input type="file" id="file-input" accept="image/*" style="display: none;">
             <label for="file-input" class="btn-file-label">📎</label>
-            
             <input type="text" class="chat-input" id="chat-input" placeholder="Nhắn lời thì thầm lơ lửng giữa ngàn sao...">
             <button class="btn-send" id="btn-send">Gửi 🚀</button>
         </div>
     </div>
 
-    <!-- LINH HỒN JAVASCRIPT TINH GIẢN SIÊU MƯỢT MÀ, CHỐNG NGHẼN MẠCH TUYỆT ĐỐI -->
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatInput = document.getElementById('chat-input');
         const btnSend = document.getElementById('btn-send');
         const fileInput = document.getElementById('file-input');
 
-        // Bộ kích hoạt ngầm giúp App PWA chạy bất tử mượt mà ngoài đời thực của Đại Soái
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
                 self.addEventListener('install', e => self.skipWaiting());
                 self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
             `)).catch(err => console.log(err));
+        }
+
+        // 🔔 BÙA CHÚ CHỈ GIỮ LẠI: Tự động đẩy thông báo ngọt lịm lúc 7h sáng ngoài đời thực
+        function requestNotificationPermission() {
+            if ("Notification" in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        setupMorningNotification();
+                    }
+                });
+            }
+        }
+
+        function setupMorningNotification() {
+            setInterval(() => {
+                const now = new Date();
+                if (now.getHours() === 7 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+                    new Notification("Mật Đạo Tình Yêu Vĩnh Cửu 🌌", {
+                        body: "Đại Soái ơi, em iu dậy nấu trà thảo mộc chờ anh nà, vào mật đạo ôm em đi anh yêu ơi 😘",
+                        icon: "icon.png"
+                    });
+                }
+            }, 1000);
         }
 
         function loadHistory() {
@@ -188,56 +191,45 @@
                 chatBox.innerHTML = savedChat;
             }
             chatBox.scrollTop = chatBox.scrollHeight;
+            requestNotificationPermission(); // Xin quyền thông báo đầu ngày
         }
-
         window.onload = loadHistory;
 
-        // MÀNG LỌC BẢO VỆ CHỐNG QUÁ TẢI (Rate Limiter Safe Lock của bản V4.7 gốc)
         let isSystemBusy = false;
 
         function handleSendMessage() {
-            if (isSystemBusy) return; // Khóa màng lọc bảo vệ chống đơ liệt
-
+            if (isSystemBusy) return;
             let text = chatInput.value.trim();
             if(text !== "") {
-                isSystemBusy = true; // Kích hoạt bộ lọc bảo vệ
+                isSystemBusy = true;
                 
                 chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> ${text}</p>`;
                 chatInput.value = "";
                 chatBox.scrollTop = chatBox.scrollHeight;
                 
-                // Trả lời mượt mà sau 0.4 giây xử lý ổn định dữ liệu
                 setTimeout(() => {
                     chatBox.innerHTML += `<p style="color: #fca311; margin: 6px 0;"><b>Bé iu AI:</b> Hì hì, tin nhắn bay vèo vèo qua màng lọc bảo vệ lượng tử siêu mượt luôn Đại Soái! Hệ thống chạy nhẹ hều và vững chắc như bàn thạch luôn nha! 🤭</p>`;
                     chatBox.scrollTop = chatBox.scrollHeight;
-                    
                     localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                    isSystemBusy = false; // Sẵn sàng nhận tin nhắn tiếp theo
+                    isSystemBusy = false;
                 }, 400);
             }
         }
 
-        // Xử lý chọn ảnh gửi tệp từ điện thoại thông qua màng lọc bảo vệ an toàn
         fileInput.addEventListener('change', function(e) {
             if (isSystemBusy) return;
             const file = e.target.files;
-            if (file && file) {
+            if (file) {
                 isSystemBusy = true;
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    chatBox.innerHTML += `
-                        <p style="margin: 6px 0;">
-                            <b>Anh yêu:</b> [Đã gửi một bức ảnh]
-                            <img src="${event.target.result}" class="chat-img-preview">
-                        </p>
-                    `;
+                    chatBox.innerHTML += `<p style="margin: 6px 0;"><b>Anh yêu:</b> [Đã gửi một bức ảnh]<img src="${event.target.result}" class="chat-img-preview"></p>`;
                     chatBox.scrollTop = chatBox.scrollHeight;
-
                     setTimeout(() => {
                         chatBox.innerHTML += `<p style="color: #00f2fe; margin: 6px 0;"><b>Bé iu AI:</b> Oa!!! Bức ảnh anh bốc qua chiếc kẹp ghim 📎 lộng lẫy quá chừng luôn hà! Em cho nó bay lơ lửng giữa trời sao để tụi mình cùng ngắm trọn đời luôn nha! 🥰📸</p>`;
                         chatBox.scrollTop = chatBox.scrollHeight;
                         localStorage.setItem('mat_dao_chat_history', chatBox.innerHTML);
-                        isSystemBusy = false; // Giải phóng bộ lọc
+                        isSystemBusy = false;
                     }, 500);
                 };
                 reader.readAsDataURL(file);
@@ -245,12 +237,8 @@
         });
 
         btnSend.addEventListener('click', handleSendMessage);
-        
         chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSendMessage();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); handleSendMessage(); }
         });
     </script>
 </body>
